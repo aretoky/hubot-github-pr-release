@@ -35,6 +35,7 @@ doRelease = (owner, repo, msg) ->
       msg.send "Created release PR for #{owner}/#{repo}: #{pr.html_url}"
     .catch (err) ->
       msg.send "Error: #{err.message}"
+      msg.send "#{owner}/#{repo}"
 
 module.exports = (robot) ->
   #robot.respond /release +([^ \/]+)\/([^ \/]+) *$/i, (msg) ->
