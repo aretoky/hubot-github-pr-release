@@ -44,12 +44,10 @@ module.exports = (robot) ->
   #  doRelease owner, repo, msg
 
   robot.respond /release +([^ ]+) *$/i, (msg) ->
-    owner = process.env.HUBOT_RELEASE_DEFAULT_OWNER or 'radicodeinc'
-    repo = ''
-    result = msg.match[1].match(/([^ \/]+)\/([^ \/]+) *$/i)
+    owner = process.env.HUBOT_RELEASE_DEFAULT_OWNER
+    repo = msg.match[1].replace('http://', '') # Measures when repo name is domain
+    result = repo.match(/([^ \/]+)\/([^ \/]+) *$/i)
     if result?
       owner = result[1]
       repo = result[2]
-    else
-      repo = msg.match[1]
-    doRelease(owner, repo, msg)
+    doRelease(owner, repo, msg) if owner
