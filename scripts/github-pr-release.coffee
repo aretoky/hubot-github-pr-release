@@ -43,7 +43,7 @@ module.exports = (robot) ->
   #  doRelease owner, repo, msg
 
   robot.respond /release +([^ ]+) *$/i, (msg) ->
-    owner = process.env.HUBOT_RELEASE_DEFAULT_OWNER
+    owner = process.env.HUBOT_RELEASE_DEFAULT_OWNER or 'radicodeinc'
     repo = ''
     result = msg.match[1].match(/([^ \/]+)\/([^ \/]+) *$/i)
     if result?
