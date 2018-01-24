@@ -37,12 +37,18 @@ doRelease = (owner, repo, msg) ->
       msg.send "Error: #{err.message}"
 
 module.exports = (robot) ->
-  robot.respond /release +([^ \/]+)\/([^ \/]+) *$/i, (msg) ->
-    owner = msg.match[1]
-    repo = msg.match[2]
-    doRelease owner, repo, msg
+  #robot.respond /release +([^ \/]+)\/([^ \/]+) *$/i, (msg) ->
+  #  owner = msg.match[1]
+  #  repo = msg.match[2]
+  #  doRelease owner, repo, msg
 
-  robot.respond /release +([^ \/]+) *$/i, (msg) ->
+  robot.respond /release +([^ ]+) *$/i, (msg) ->
     owner = process.env.HUBOT_RELEASE_DEFAULT_OWNER
-    repo = msg.match[1]
-    doRelease(owner, repo, msg) #if owner
+    repo = ''
+    result = msg.match[1].match(/([^ \/]+)\/([^ \/]+) *$/i)
+    if result?
+      owner = result[1]
+      repo = result[2]
+    else
+      repo = msg.match[1]
+    doRelease(owner, repo, msg)
