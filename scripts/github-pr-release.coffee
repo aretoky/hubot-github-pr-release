@@ -45,4 +45,4 @@ module.exports = (robot) ->
   robot.respond /release +([^ \/]+) *$/i, (msg) ->
     owner = process.env.HUBOT_RELEASE_DEFAULT_OWNER
     repo = msg.match[1]
-    doRelease(owner, repo, msg) if owner
+    doRelease(owner, repo, msg) #if owner
